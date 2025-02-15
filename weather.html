@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  background-image: url(https://i.redd.it/8mbwlbjkbuu01.jpg);
+  background-size: cover;
+  color: #fff;
+  
+  
+}
+
+.container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(1.2, 1.2, 1.2, 1.2);
+}
+
+.container:hover{
+  transform: scale(1.1);
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  width: 200px;
+}
+
+input:hover{
+  background-color: beige;
+  transform: scale(1.05);
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #ff7f50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #fd2600;
+  transform: scale(1.06);
+}
+
+#weather-result {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+</style>
+<body>
+  <div class="container">
+    <h1>Weather App</h1>
+    <p>Enter your city name to get the weather:</p>
+      <input type="text" id="city" placeholder="Enter city name" >
+      <button onclick="weather()">Find Weather</button>
+      <div class="weather-result">
+      <p style="margin-top: 45px;" id="Temperature"> </p>
+      <p id="humidity"> </p>
+      <p id="sea_level"> </p>
+      <p id="windspeed"> </p>
+      <p id="weather"> </p>
+      </div>   
+
+
+        
+  </div>        
+  <script>   
+    async function weather() {
+        var city = document.getElementById("city").value;
+        var api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bf8f39566ba81c34fa46ca8b3c9f73e8`;
+        var d = await fetch(api);  //await is used to wait for the line to execute and it is used with async first
+        var data = await d.json();
+        document.getElementById("Temperature").innerHTML =`Temperature :- ${Math.ceil(data.main.temp-273)}` +  " 'C";
+        document.getElementById("humidity").innerHTML = `Humidity :-  ${Math.ceil(data.main.humidity)}`;
+        //document.getElementById("sea_level").innerHTML = `Sea-Level :-  ${Math.ceil(data.main.sea_level)}`;
+        document.getElementById("windspeed").innerHTML = `Wind-Speed :-  ${(data.wind.speed)}`;
+        //document.getElementById("weather").innerHTML = `Weather :-  ${(data.description)}`;
+    }
+  </script>
+</body>
+</html>
+
